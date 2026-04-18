@@ -206,6 +206,7 @@ func (s *State) handleCd(args []string) {
 
 	if len(args) == 0 {
 		s.currentPath = s.rootEntry.Path
+		scanner.ResetStats()
 		s.rootEntry, _ = scanner.Scan(s.rootEntry.Path)
 		return
 	}
@@ -214,6 +215,7 @@ func (s *State) handleCd(args []string) {
 	if target == ".." {
 		parent := filepath.Dir(s.currentPath)
 		s.currentPath = parent
+		scanner.ResetStats()
 		s.rootEntry, _ = scanner.Scan(parent)
 	} else {
 		newPath := filepath.Join(s.currentPath, target)
